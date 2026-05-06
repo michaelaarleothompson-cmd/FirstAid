@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		304C810A2F9D153F00CB265B /* SwiftUICam in Frameworks */ = {isa = PBXBuildFile; productRef = 304C81092F9D153F00CB265B /* SwiftUICam */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		303A835E2F59196D0023FC48 /* First Aid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "First Aid.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				304C810A2F9D153F00CB265B /* SwiftUICam in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = "First Aid";
 			packageProductDependencies = (
+				304C81092F9D153F00CB265B /* SwiftUICam */,
 			);
 			productName = "First Aid";
 			productReference = 303A835E2F59196D0023FC48 /* First Aid.app */;
@@ -94,6 +100,11 @@
 			);
 			mainGroup = 303A83552F59196D0023FC48;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */,
+				304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
+				304C816A2FA8078F00CB265B /* XCRemoteSwiftPackageReference "mlx-swift" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 303A835F2F59196D0023FC48 /* Products */;
 			projectDirPath = "";
@@ -251,8 +262,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BP6M58DJF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Require Camera for Image Assisg";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -282,8 +295,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = BP6M58DJF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Require Camera for Image Assisg";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -328,6 +343,41 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/vGebs/SwiftUICam";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.2;
+			};
+		};
+		304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.31.3;
+			};
+		};
+		304C816A2FA8078F00CB265B /* XCRemoteSwiftPackageReference "mlx-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.31.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		304C81092F9D153F00CB265B /* SwiftUICam */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */;
+			productName = SwiftUICam;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 303A83562F59196D0023FC48 /* Project object */;
 }
