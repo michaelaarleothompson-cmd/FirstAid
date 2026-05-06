@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		304C810A2F9D153F00CB265B /* SwiftUICam in Frameworks */ = {isa = PBXBuildFile; productRef = 304C81092F9D153F00CB265B /* SwiftUICam */; };
+		307CA9AB2FABF7EA006E9E77 /* MLXVLM in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AA2FABF7EA006E9E77 /* MLXVLM */; };
+		307CA9AD2FABF7EA006E9E77 /* MLX in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AC2FABF7EA006E9E77 /* MLX */; };
+		307CA9AF2FABF7F3006E9E77 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				307CA9AD2FABF7EA006E9E77 /* MLX in Frameworks */,
+				307CA9AB2FABF7EA006E9E77 /* MLXVLM in Frameworks */,
+				307CA9AF2FABF7F3006E9E77 /* MLXLMCommon in Frameworks */,
 				304C810A2F9D153F00CB265B /* SwiftUICam in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -38,6 +44,7 @@
 			isa = PBXGroup;
 			children = (
 				303A83602F59196D0023FC48 /* First Aid */,
+				307CA9A92FABF7EA006E9E77 /* Frameworks */,
 				303A835F2F59196D0023FC48 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +55,13 @@
 				303A835E2F59196D0023FC48 /* First Aid.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		307CA9A92FABF7EA006E9E77 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,6 +85,9 @@
 			name = "First Aid";
 			packageProductDependencies = (
 				304C81092F9D153F00CB265B /* SwiftUICam */,
+				307CA9AA2FABF7EA006E9E77 /* MLXVLM */,
+				307CA9AC2FABF7EA006E9E77 /* MLX */,
+				307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */,
 			);
 			productName = "First Aid";
 			productReference = 303A835E2F59196D0023FC48 /* First Aid.app */;
@@ -376,6 +393,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */;
 			productName = SwiftUICam;
+		};
+		307CA9AA2FABF7EA006E9E77 /* MLXVLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXVLM;
+		};
+		307CA9AC2FABF7EA006E9E77 /* MLX */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 304C816A2FA8078F00CB265B /* XCRemoteSwiftPackageReference "mlx-swift" */;
+			productName = MLX;
+		};
+		307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLMCommon;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

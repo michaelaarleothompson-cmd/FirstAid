@@ -28,7 +28,7 @@ struct Illness: View {
         // Temperature
         if let temp = temperature {
             if temp >= 104.0 {
-                textSoFar += "HIGH FEVER: Seek emergency medical care. "
+                textSoFar += "High fever: Seek emergency medical care. "
             } else if temp >= 101.5 {
                 textSoFar += "Moderate fever: Rest and hydrate. "
             } else if temp >= 100.4 {
