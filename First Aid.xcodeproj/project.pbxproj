@@ -11,6 +11,9 @@
 		307CA9AB2FABF7EA006E9E77 /* MLXVLM in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AA2FABF7EA006E9E77 /* MLXVLM */; };
 		307CA9AD2FABF7EA006E9E77 /* MLX in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AC2FABF7EA006E9E77 /* MLX */; };
 		307CA9AF2FABF7F3006E9E77 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */; };
+		307CA9B12FABF801006E9E77 /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9B02FABF801006E9E77 /* MLXHuggingFace */; };
+		307CA9B32FABF801006E9E77 /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9B22FABF801006E9E77 /* HuggingFace */; };
+		307CA9B52FABF801006E9E77 /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9B42FABF801006E9E77 /* Tokenizers */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +36,9 @@
 				307CA9AD2FABF7EA006E9E77 /* MLX in Frameworks */,
 				307CA9AB2FABF7EA006E9E77 /* MLXVLM in Frameworks */,
 				307CA9AF2FABF7F3006E9E77 /* MLXLMCommon in Frameworks */,
+				307CA9B12FABF801006E9E77 /* MLXHuggingFace in Frameworks */,
+				307CA9B32FABF801006E9E77 /* HuggingFace in Frameworks */,
+				307CA9B52FABF801006E9E77 /* Tokenizers in Frameworks */,
 				304C810A2F9D153F00CB265B /* SwiftUICam in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,6 +94,9 @@
 				307CA9AA2FABF7EA006E9E77 /* MLXVLM */,
 				307CA9AC2FABF7EA006E9E77 /* MLX */,
 				307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */,
+				307CA9B02FABF801006E9E77 /* MLXHuggingFace */,
+				307CA9B22FABF801006E9E77 /* HuggingFace */,
+				307CA9B42FABF801006E9E77 /* Tokenizers */,
 			);
 			productName = "First Aid";
 			productReference = 303A835E2F59196D0023FC48 /* First Aid.app */;
@@ -121,6 +130,8 @@
 				304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */,
 				304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
 				304C816A2FA8078F00CB265B /* XCRemoteSwiftPackageReference "mlx-swift" */,
+				307CA9B62FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-huggingface" */,
+				307CA9B72FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-transformers" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 303A835F2F59196D0023FC48 /* Products */;
@@ -282,7 +293,9 @@
 				DEVELOPMENT_TEAM = BP6M58DJF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Require Camera for Image Assisg";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is used to capture images for Image Assist.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photo library access is used to save captured first-aid images.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photo library access is used to choose images when the camera is unavailable.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -315,7 +328,9 @@
 				DEVELOPMENT_TEAM = BP6M58DJF4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Require Camera for Image Assisg";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is used to capture images for Image Assist.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "Photo library access is used to save captured first-aid images.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Photo library access is used to choose images when the camera is unavailable.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -386,6 +401,22 @@
 				minimumVersion = 0.31.3;
 			};
 		};
+		307CA9B62FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-huggingface" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-huggingface";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.0;
+			};
+		};
+		307CA9B72FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-transformers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-transformers";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -408,6 +439,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
 			productName = MLXLMCommon;
+		};
+		307CA9B02FABF801006E9E77 /* MLXHuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXHuggingFace;
+		};
+		307CA9B22FABF801006E9E77 /* HuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 307CA9B62FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-huggingface" */;
+			productName = HuggingFace;
+		};
+		307CA9B42FABF801006E9E77 /* Tokenizers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 307CA9B72FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-transformers" */;
+			productName = Tokenizers;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

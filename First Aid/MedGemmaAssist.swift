@@ -1,68 +1,165 @@
-////
-////  MedGemmaAssist.swift
-////  First Aid
-////
-////  Created by Michaela Arleo Thompson on 5/6/26.
-////
-////referenced base code from Gemini
-//import SwiftUI
-//import MLX
-//import MLXVLM
-//import MLXLMCommon
-//import Observation
 //
-//@Observable
-//@MainActor
-//class LocalMedGemmaViewModel {
-//    var outputText = ""
-//    var isProcessing = false
-//    
-//    // In v3.x, this is the unified thread-safe wrapper
-//    private var modelContainer: ModelContainer?
+//  MedGemmaAssist.swift
+//  First Aid
 //
-////    func loadModel() async {
-////        guard modelContainer == nil else { return }
-////        do {
-////            let config = ModelConfiguration(id: "google/medgemma-1.5-4b-it-mlx-q4")
-////            
-////            // NEW API: VLMModelFactory.shared.loadContainer is replaced by
-////            // the unified loadModelContainer call
-////            self.modelContainer = try await VLMModelFactory.shared.loadModelContainer(configuration: config)
-////            
-////            self.outputText = "MedGemma Ready"
-////        } catch {
-////            self.outputText = "Load Error: \(error.localizedDescription)"
-////        }
-////    }
+//  Created by Michaela Arleo Thompson on 5/6/26.
 //
-//    func analyze(image: UIImage, question: String) async {
-//        guard let container = modelContainer else { return }
-//        self.isProcessing = true
-//        self.outputText = ""
-//        
-//        guard let ciImage = CIImage(image: image) else { return }
-//        
-////        do {
-////            // The UserInput now goes directly into the container's perform block
-////            let input = UserInput(prompt: question, images: [.ciImage(ciImage)])
-////            
-////            // This 'perform' block is the modern thread-safe way to run inference
-////            try await container.perform { context in
-////                // 1. Prepare image (resizing/tokenizing)
-////                let preparedInput = try await context.processor.prepare(input: input)
-////                
-////                // 2. Generate text
-////                return try MLXLMCommon.generate(input: preparedInput, parameters: .init(), context: context) { tokens in
-////                    let newText = context.tokenizer.decode(tokens: tokens)
-////                    Task { @MainActor in
-////                        self.outputText += newText
-////                    }
-////                    return .more
-////                }
-////            }
-////        } catch {
-//            self.outputText = "Inference Error: \(error.localizedDescription)"
-//        }
-//        self.isProcessing = false
-//    }
-//}
+//referenced base code from Gemini
+
+
+import CoreImage
+import Foundation
+import HuggingFace
+import MLX
+import MLXHuggingFace
+import MLXLMCommon
+import MLXVLM
+import Observation
+import Tokenizers
+import UIKit
+
+@Observable
+@MainActor
+final class LocalMedGemmaViewModel {
+    var outputText = ""
+    var statusText = "MedGemma has not loaded yet."
+    var isLoading = false
+    var isProcessing = false
+
+    private let modelID = "google/medgemma-1.5-4b-it-mlx-q4"
+    private var modelContainer: ModelContainer?
+
+    var canAnalyze: Bool {
+        !isLoading && !isProcessing
+    }
+
+    func resetOutput() {
+        outputText = ""
+    }
+
+    func loadModelIfNeeded() async {
+        guard modelContainer == nil else { return }
+
+        isLoading = true
+        statusText = "Loading MedGemma..."
+
+        do {
+            let tokenizerLoader = #huggingFaceTokenizerLoader()
+
+            if let localDirectory = findLocalModelDirectory() {
+                modelContainer = try await VLMModelFactory.shared.loadContainer(
+                    from: localDirectory,
+                    using: tokenizerLoader
+                )
+                statusText = "MedGemma ready from local model files."
+            } else {
+                let configuration = ModelConfiguration(id: modelID)
+                modelContainer = try await VLMModelFactory.shared.loadContainer(
+                    from: #hubDownloader(),
+                    using: tokenizerLoader,
+                    configuration: configuration
+                )
+                statusText = "MedGemma ready from Hugging Face cache."
+            }
+        } catch {
+            statusText = "Could not load MedGemma: \(error.localizedDescription)"
+        }
+
+        isLoading = false
+    }
+
+    func analyze(image: UIImage, question: String) async {
+        await loadModelIfNeeded()
+
+        guard let container = modelContainer else {
+            outputText = "MedGemma is not available yet."
+            return
+        }
+
+        guard let ciImage = makeCIImage(from: image) else {
+            outputText = "Could not read the selected image."
+            return
+        }
+
+        isProcessing = true
+        outputText = ""
+        statusText = "Analyzing image..."
+
+        do {
+            let prompt = """
+            You are a cautious first-aid assistant. Analyze the image and answer the user's question.
+            Focus on visible first-aid concerns, urgent red flags, and safe immediate steps.
+            Do not provide a definitive diagnosis. Recommend emergency care for severe bleeding, trouble breathing, loss of consciousness, major burns, suspected fracture, infection signs, or uncertainty.
+
+            User question: \(question)
+            """
+
+            let userInput = UserInput(
+                prompt: prompt,
+                images: [.ciImage(ciImage)]
+            )
+            let input = try await container.prepare(input: userInput)
+            let stream = try await container.generate(
+                input: input,
+                parameters: GenerateParameters(maxTokens: 512, temperature: 0.2)
+            )
+
+            for await generation in stream {
+                switch generation {
+                case .chunk(let text):
+                    outputText += text
+                case .info:
+                    break
+                case .toolCall:
+                    break
+                }
+            }
+
+            if outputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                outputText = "MedGemma finished without returning text."
+            }
+            statusText = "Analysis complete."
+        } catch {
+            outputText = "Inference error: \(error.localizedDescription)"
+            statusText = "Analysis failed."
+        }
+
+        isProcessing = false
+    }
+
+    private func findLocalModelDirectory() -> URL? {
+        let configuredPath = UserDefaults.standard.string(forKey: "MedGemmaModelPath")
+        let configuredURL = configuredPath.map { URL(fileURLWithPath: $0) }
+
+        let fileManager = FileManager.default
+        let modelFolderNames = [
+            "medgemma-1.5-4b-it-mlx-q4",
+            "medgemma",
+            "MedGemma"
+        ]
+
+        let appDirectories = [
+            Bundle.main.resourceURL,
+            fileManager.urls(for: .documentDirectory, in: .userDomainMask).first,
+            fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first,
+            fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first
+        ]
+
+        let candidates = [configuredURL]
+            + appDirectories.flatMap { directory in
+                modelFolderNames.map { directory?.appendingPathComponent($0) }
+            }
+
+        return candidates.compactMap { $0 }.first { url in
+            fileManager.fileExists(atPath: url.appendingPathComponent("config.json").path)
+        }
+    }
+
+    private func makeCIImage(from image: UIImage) -> CIImage? {
+        if let cgImage = image.cgImage {
+            return CIImage(cgImage: cgImage)
+        }
+
+        return CIImage(image: image)
+    }
+}
