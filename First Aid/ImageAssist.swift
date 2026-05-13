@@ -10,7 +10,8 @@ import SwiftUI
 import UIKit
 
 struct ImageAssist: View {
-    @State private var showCamera = false
+    @State private var showImagePicker = false
+    @State private var imagePickerSource: UIImagePickerController.SourceType = .camera
     @State private var capturedImage: UIImage?
     @State private var question = "What first-aid steps should I take for what is visible in this image?"
     @State private var medGemma = LocalMedGemmaViewModel()
@@ -28,12 +29,22 @@ struct ImageAssist: View {
 
                 HStack {
                     Button {
-                        showCamera = true
+                        imagePickerSource = .camera
+                        showImagePicker = true
                     } label: {
                         Label("Take Photo", systemImage: "camera.fill")
                             .font(.headline)
                     }
                     .buttonStyle(.borderedProminent)
+
+                    Button {
+                        imagePickerSource = .photoLibrary
+                        showImagePicker = true
+                    } label: {
+                        Label("Choose Photo", systemImage: "photo.on.rectangle")
+                            .font(.headline)
+                    }
+                    .buttonStyle(.bordered)
 
                     if capturedImage != nil {
                         Button {
@@ -78,8 +89,11 @@ struct ImageAssist: View {
             .padding()
         }
         .navigationTitle("Image Assist")
-        .sheet(isPresented: $showCamera) {
-            CameraPicker(selectedImage: $capturedImage)
+        .sheet(isPresented: $showImagePicker) {
+            CameraPicker(selectedImage: $capturedImage, sourceType: imagePickerSource)
+        }
+        .onChange(of: capturedImage) {
+            medGemma.resetOutput()
         }
     }
 

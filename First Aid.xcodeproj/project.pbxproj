@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		304C810A2F9D153F00CB265B /* SwiftUICam in Frameworks */ = {isa = PBXBuildFile; productRef = 304C81092F9D153F00CB265B /* SwiftUICam */; };
 		307CA9AB2FABF7EA006E9E77 /* MLXVLM in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AA2FABF7EA006E9E77 /* MLXVLM */; };
-		307CA9AD2FABF7EA006E9E77 /* MLX in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AC2FABF7EA006E9E77 /* MLX */; };
 		307CA9AF2FABF7F3006E9E77 /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */; };
 		307CA9B12FABF801006E9E77 /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9B02FABF801006E9E77 /* MLXHuggingFace */; };
 		307CA9B32FABF801006E9E77 /* HuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 307CA9B22FABF801006E9E77 /* HuggingFace */; };
@@ -33,13 +31,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				307CA9AD2FABF7EA006E9E77 /* MLX in Frameworks */,
 				307CA9AB2FABF7EA006E9E77 /* MLXVLM in Frameworks */,
 				307CA9AF2FABF7F3006E9E77 /* MLXLMCommon in Frameworks */,
 				307CA9B12FABF801006E9E77 /* MLXHuggingFace in Frameworks */,
 				307CA9B32FABF801006E9E77 /* HuggingFace in Frameworks */,
 				307CA9B52FABF801006E9E77 /* Tokenizers in Frameworks */,
-				304C810A2F9D153F00CB265B /* SwiftUICam in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,9 +86,7 @@
 			);
 			name = "First Aid";
 			packageProductDependencies = (
-				304C81092F9D153F00CB265B /* SwiftUICam */,
 				307CA9AA2FABF7EA006E9E77 /* MLXVLM */,
-				307CA9AC2FABF7EA006E9E77 /* MLX */,
 				307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */,
 				307CA9B02FABF801006E9E77 /* MLXHuggingFace */,
 				307CA9B22FABF801006E9E77 /* HuggingFace */,
@@ -127,9 +121,7 @@
 			mainGroup = 303A83552F59196D0023FC48;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */,
 				304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
-				304C816A2FA8078F00CB265B /* XCRemoteSwiftPackageReference "mlx-swift" */,
 				307CA9B62FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-huggingface" */,
 				307CA9B72FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-transformers" */,
 			);
@@ -288,9 +280,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "First Aid/First Aid.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BP6M58DJF4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is used to capture images for Image Assist.";
@@ -323,9 +316,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "First Aid/First Aid.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = BP6M58DJF4;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera access is used to capture images for Image Assist.";
@@ -377,28 +371,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/vGebs/SwiftUICam";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.2;
-			};
-		};
 		304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.31.3;
-			};
-		};
-		304C816A2FA8078F00CB265B /* XCRemoteSwiftPackageReference "mlx-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ml-explore/mlx-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.31.3;
 			};
 		};
 		307CA9B62FABF801006E9E77 /* XCRemoteSwiftPackageReference "swift-huggingface" */ = {
@@ -420,20 +398,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		304C81092F9D153F00CB265B /* SwiftUICam */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 304C81082F9D153F00CB265B /* XCRemoteSwiftPackageReference "SwiftUICam" */;
-			productName = SwiftUICam;
-		};
 		307CA9AA2FABF7EA006E9E77 /* MLXVLM */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 304C81692FA8060200CB265B /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
 			productName = MLXVLM;
-		};
-		307CA9AC2FABF7EA006E9E77 /* MLX */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 304C816A2FA8078F00CB265B /* XCRemoteSwiftPackageReference "mlx-swift" */;
-			productName = MLX;
 		};
 		307CA9AE2FABF7F3006E9E77 /* MLXLMCommon */ = {
 			isa = XCSwiftPackageProductDependency;

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftData
 
 struct HomeScreen: View {
     let mainColor = Color(red: 20/255, green: 28/255, blue: 58/255)
@@ -105,4 +104,3 @@ struct Preview: PreviewProvider {
         HomeScreen()
     }
 }
-

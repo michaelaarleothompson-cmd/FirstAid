@@ -10,7 +10,6 @@
 import CoreImage
 import Foundation
 import HuggingFace
-import MLX
 import MLXHuggingFace
 import MLXLMCommon
 import MLXVLM
@@ -26,7 +25,7 @@ final class LocalMedGemmaViewModel {
     var isLoading = false
     var isProcessing = false
 
-    private let modelID = "google/medgemma-1.5-4b-it-mlx-q4"
+    private let modelID = "mlx-community/medgemma-1.5-4b-it-4bit"
     private var modelContainer: ModelContainer?
 
     var canAnalyze: Bool {
@@ -62,7 +61,12 @@ final class LocalMedGemmaViewModel {
                 statusText = "MedGemma ready from Hugging Face cache."
             }
         } catch {
-            statusText = "Could not load MedGemma: \(error.localizedDescription)"
+            print("MedGemma load error: \(error)")
+            if error.localizedDescription.contains("HTTPClientError") {
+                statusText = "Hugging Face Error: Ensure you have accepted the MedGemma license on HuggingFace.co and that your model ID is correct. (Error: \(error.localizedDescription))"
+            } else {
+                statusText = "Could not load MedGemma: \(error.localizedDescription)"
+            }
         }
 
         isLoading = false
@@ -86,13 +90,7 @@ final class LocalMedGemmaViewModel {
         statusText = "Analyzing image..."
 
         do {
-            let prompt = """
-            You are a cautious first-aid assistant. Analyze the image and answer the user's question.
-            Focus on visible first-aid concerns, urgent red flags, and safe immediate steps.
-            Do not provide a definitive diagnosis. Recommend emergency care for severe bleeding, trouble breathing, loss of consciousness, major burns, suspected fracture, infection signs, or uncertainty.
-
-            User question: \(question)
-            """
+            let prompt = "<image>\nYou are a helpful medical assistant. Analyze the image and answer the user's question: \(question)"
 
             let userInput = UserInput(
                 prompt: prompt,
@@ -133,6 +131,7 @@ final class LocalMedGemmaViewModel {
 
         let fileManager = FileManager.default
         let modelFolderNames = [
+            "medgemma-1.5-4b-it-4bit",
             "medgemma-1.5-4b-it-mlx-q4",
             "medgemma",
             "MedGemma"
